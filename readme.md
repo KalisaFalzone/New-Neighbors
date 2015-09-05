@@ -1,59 +1,56 @@
 # New-Neighbors
 
-An application to help you move into any new locality in the United States, by suggesting you personalized recommendations for the best neighborhoods around.
+#### An application to help you move into any new locality in the United States, by suggesting you personalized recommendations for the best neighborhoods around.
+
+##User information
+
+######Searching for Neighborhoods
+To get started:
+- Type in an address or city that you would like to be close to
+- Select weather you would like to Rent or Buy
+- Enter the number of bedrooms and bathrooms you are looking for
+
+This will display a list of nearby neighborhoods as well as the price ranges to rent/buy there as well as the commute distance and time.
+
+######Filtering the Search Results
+You can filter the search results by the following criteria:
+- Maximum rent price per month
+- Maximum commute distance
+- Maximum commute driving time
+
+Use the slider and dropdown items in the filter section to do this.
+
+######Ordering the Search Results
+You may also order the results by the same factors as you can filter using the Order drop down.
 
 
-*******PLEASE READ WHEN FIRST INSTALLING DEPENDENCIES FOR REPO *********
+## Developer Information
 
-# Foundation for Apps Template
+### Tech Stack
 
-[![devDependency Status](https://david-dm.org/zurb/foundation-apps-template/dev-status.svg)](https://david-dm.org/zurb/foundation-apps-template#info=devDependencies)
+- [Angular](https://angularjs.org/)
+- [Foundation for Apps](http://foundation.zurb.com/apps/)
+- [Google Maps API](https://developers.google.com/maps/?hl=en)
+- [Zilpy](http://www.zilpy.com/api)
 
-This is the default template project for Foundation for Apps, powered by Gulp, Angular, and libsass. It provides you with a basic template to get started with Foundation for Apps and Angular.
+### Installing Dependencies
 
-If you're already an Angular developer, you may instead want to install the components into your own stack using Bower: `bower install foundation-apps`
+From within the root directory:
 
-## Requirements
-
-You'll need the following software installed to get started.
-
-  - [Node.js](http://nodejs.org): Use the installer for your OS.
-  - [Git](http://git-scm.com/downloads): Use the installer for your OS.
-    - Windows users can also try [Git for Windows](http://git-for-windows.github.io/).
-  - [Gulp](http://gulpjs.com/) and [Bower](http://bower.io): Run `npm install -g gulp bower`
-    - Depending on how Node is configured on your machine, you may need to run `sudo npm install -g gulp bower` instead, if you get an error with the first command.
-
-## Get Started
-
-Clone this repository, where `app` is the name of your app.
-
-```bash
-git clone https://github.com/zurb/foundation-apps-template.git app
-```
-
-Change into the directory.
-
-```bash
-cd app
-```
-
-Install the dependencies. If you're running Mac OS or Linux, you may need to run `sudo npm install` instead, depending on how your machine is configured.
-
-```bash
+```sh
 npm install
 bower install
 ```
 
-While you're working on your project, run:
+### Updating API keys:
 
-```bash
-npm start
-```
+Create a file located at server/config/keys.js with this information:
 
-This will compile the Sass and assemble your Angular app. **Now go to `localhost:8080` in your browser to see it in action.** When you change any file in the `client` folder, the appropriate Gulp task will run to build new files.
+module.exports = {
+  googleAPIKey : 'your API key',
+  TruliaAPIKey : 'your API key'
+};
 
-To run the compiling process once, without watching any files, use the `build` command.
 
-```bash
-npm start build
-```
+
+
