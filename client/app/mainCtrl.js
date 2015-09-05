@@ -122,13 +122,15 @@ angular.module('myApp',['myApp.mapServices', 'myApp.requestHoodServices'])
   };
 
   //----------------------------------------------------------------------------------
-  // Function to filter neighborhoods by user's filter options 
+  // Function to filter neighborhoods by user's filter options
+  main.filterNeighborhoods = function() {
   main.filterNeighborhoods = function() {
     main.filteredNeighborhoodArray = main.neighborhoodArray.filter(function(obj) {
-      return main.searchInfo.maxRent > obj.estimateLow && 
-      main.searchInfo.commuteTime > obj.commuteTime && 
-      main.searchInfo.commuteDistance > obj.commuteDistance;
+      return !(main.searchInfo.maxRent <= obj.estimateLow) &&
+      !(main.searchInfo.commuteTime <= obj.commuteTime) &&
+      !(main.searchInfo.commuteDistance <= obj.commuteDistance);
     });
+  };
   };
 
   //----------------------------------------------------------------------------------
