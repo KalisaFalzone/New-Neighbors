@@ -210,6 +210,7 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
     console.log('selectNeighborhood', Details.currentNeighborhood)
     $state.go('main.details');
     Charts.barChartData(neighborhood);
+    Charts.pieChartData(neighborhood);
     Map.dropMarker(neighborhood.coordinates);
     Map.panAndFocus(neighborhood.coordinates, 13);
     Map.drawCircle(neighborhood.coordinates, 2000);
