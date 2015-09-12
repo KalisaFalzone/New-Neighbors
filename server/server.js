@@ -281,27 +281,32 @@ var getDemographics  = function (neighborhoodObj) {
   //remove
   // console.log('Fetch Zillow Info called. numNeighborhoods:', numNeighborhoods);
 
-  for(var neighborhood in neighborhoodObj) {
-    queryZillow(neighborhood, neighborhoodObj[neighborhood].city)
-    .then(function (tuple) {
-      //tuple: [demographyObj, neighborhood]
-      var demographyObj = tuple[0];
-      var neighborhood = tuple[1];
 
-      numEvents++;
-      // console.log('Zillow data fetched for neighborhood:', neighborhood);
-      // console.log('Demography information:', demographyObj['Demographics:demographics']);
-      neighborhoodObj[neighborhood].demography = demographyObj['Demographics:demographics'].response[0];
-      // _.extend(neighborhoodObj[neighborhood], demographyObj);
+//UNCOMMENT TO QUERY ZILLOW
+  // for(var neighborhood in neighborhoodObj) {
+  //   queryZillow(neighborhood, neighborhoodObj[neighborhood].city)
+  //   .then(function (tuple) {
+  //     //tuple: [demographyObj, neighborhood]
+  //     var demographyObj = tuple[0];
+  //     var neighborhood = tuple[1];
 
-      if(numEvents === numNeighborhoods) {
-        deferred.resolve(neighborhoodObj);
-      }
-    });
-  }
+  //     numEvents++;
+  //     // console.log('Zillow data fetched for neighborhood:', neighborhood);
+  //     // console.log('Demography information:', demographyObj['Demographics:demographics']);
+  //     neighborhoodObj[neighborhood].demography = demographyObj['Demographics:demographics'].response[0];
+  //     // _.extend(neighborhoodObj[neighborhood], demographyObj);
+
+  //     if(numEvents === numNeighborhoods) {
+  //       deferred.resolve(neighborhoodObj);
+  //     }
+  //   });
+  // }
+
+//COMMENT TO ACTIVATE ZILLOW
+deferred.resolve(neighborhoodObj);
 
   return deferred.promise;
-}
+};
 
 
 //-----------------------------------------------------------------------------------
