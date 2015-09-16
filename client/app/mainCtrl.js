@@ -15,9 +15,11 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
   main.searchInfo.commuteDistance = 30;
   main.imageArray = ['../assets/images/default-neighborhood-bg.jpg', '../assets/images/default-photo-gallery.jpg', '../assets/images/santamonica.jpg'];
 
+  main.filter = {};
+
   main.filteredNeighborhoodArray = [];
   main.serverResponse = {};
-  main.filterType = 'estimateLow';
+  main.filterType = 'orderPrice';
   main.currentNeighborhood;
 
   main.serviceObj = {};
@@ -259,9 +261,22 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
   //----------------------------------------------------------------------------------
   // Function to filter neighborhoods by user's filter options
   main.filterNeighborhoods = function() {
-    // console.log('filterNeighborhoods')
+
+    var price = true;
+    if (main.buyOrRent === 'rent') {
+      main.filter.maxPrice = 8000;
+      main.fliter.maxPriceTitle = 'Max Monthly Price:'
+    } else {
+      main.filter.maxPrice = 5000000;
+      main.fliter.maxPriceTitle = 'Max Home Price:'
+    }
+    if (main.buyOrRent === 'rent') {
+      price = !(main.filter.maxPrice < main.neighborhoodArray.estimateLow);
+    } else {
+      price = (main.filter.maxPrice < main.buyPrice.priceNum);
+    }
     main.filteredNeighborhoodArray = main.neighborhoodArray.filter(function(obj) {
-      return !(main.searchInfo.maxRent < obj.estimateLow) &&
+      return price &&
       !(main.searchInfo.commuteTime < obj.commuteTime) &&
       !(main.searchInfo.commuteDistance < obj.commuteDistance);
     });
