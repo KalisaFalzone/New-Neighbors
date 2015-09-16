@@ -264,16 +264,20 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
 
     var price = true;
     if (main.buyOrRent === 'rent') {
-      main.filter.maxPrice = 8000;
+      main.filter.displayMaxPrice = 8000;
       main.fliter.maxPriceTitle = 'Max Monthly Price:'
+      main.filter.displayValue = 1000;
+      main.filter.displayStep = 25;
     } else {
-      main.filter.maxPrice = 5000000;
+      main.filter.displayMaxPrice = 5000000;
       main.fliter.maxPriceTitle = 'Max Home Price:'
+      main.filter.displayValue = 200000;
+      main.filter.displayStep = 2000;
     }
     if (main.buyOrRent === 'rent') {
       price = !(main.filter.maxPrice < main.neighborhoodArray.estimateLow);
     } else {
-      price = (main.filter.maxPrice < main.buyPrice.priceNum);
+      price = !(main.filter.maxPrice < main.buyPrice.priceNum);
     }
     main.filteredNeighborhoodArray = main.neighborhoodArray.filter(function(obj) {
       return price &&
