@@ -10,10 +10,14 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
   main.searchInfo.buyOrRent = 'rent';
   main.searchInfo.bedrooms = 1;
   main.searchInfo.bathrooms = 1;
-  main.searchInfo.maxRent = 8000;
-  main.searchInfo.commuteTime = 45;
-  main.searchInfo.commuteDistance = 30;
   main.imageArray = ['../assets/images/default-neighborhood-bg.jpg', '../assets/images/default-photo-gallery.jpg', '../assets/images/santamonica.jpg'];
+
+  //items to filter by
+  main.filter = {};
+  main.filter.maxPrice;
+  main.filter.commuteTime = 45;
+  main.filter.commuteDistance = 30;
+
 
   main.filteredNeighborhoodArray = [];
   main.serverResponse = {};
@@ -52,6 +56,15 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
     return obj;
   }
 
+  main.filterMaxPrice = function() {
+    if (main.searchInfo.buyOrRent === 'rent') {
+      main.filter.maxPrice = 8000;
+    }
+    else {
+      main.filter.maxPrice = 5000000;
+    }
+  }
+
   main.orderByArray = function(neighborhoods){
     var arr = [];
     for (var i = 0; i < neighborhoods.length; i++) {
@@ -62,15 +75,15 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
           name: neighborhoods[i].name,
           commuteTime: neighborhoods[i].commuteInfo.commuteTime,
           commuteDistance: neighborhoods[i].commuteInfo.commuteDistance,
-          estimateLow: neighborhoods[i].rentEstimate ? neighborhoods[i].rentEstimate.estimateLow : 'Not Available',
+          estimateLow: main.searchInfo.buyOrRent === 'rent' ? neighborhoods[i].rentEstimate.estimateLow : main.buyPrice[neighborhoods[i].name].priceNumber,
           estimateHigh: neighborhoods[i].rentEstimate ? neighborhoods[i].rentEstimate.estimateHigh : 'Not Available',
           instagram: neighborhoods[i].instagram,
           coordinates: {latitude: neighborhoods[i].latitude, longitude: neighborhoods[i].longitude},
           demography: neighborhoods[i].demography,
           priceString : getPriceString(neighborhoods[i]),
-          buyPrice: main.buyPrice[neighborhoods[i].name]
       });
     }
+    console.log('orderByArray', arr);
     return arr;
   };
 
@@ -131,7 +144,8 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
           priceData[dataInfo[0]].values[0][dataInfo[1]][0].value &&
           priceData[dataInfo[0]].values[0][dataInfo[1]][0].value[0] &&
           priceData[dataInfo[0]].values[0][dataInfo[1]][0].value[0]._) {
-            temp.price = '$' + parseInt(priceData[dataInfo[0]].values[0][dataInfo[1]][0].value[0]._).toLocaleString();
+            temp.priceNumber = parseInt(priceData[dataInfo[0]].values[0][dataInfo[1]][0].value[0]._)
+            temp.price = '$' + temp.priceNumber.toLocaleString();
         }
       }
       main.buyPrice[item.name] = temp;
@@ -185,7 +199,7 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
 
       if (status === google.maps.GeocoderStatus.OK) {
         var address = results[0].formatted_address;
-        var coordinates = { latitude : results[0].geometry.location.G, longitude : results[0].geometry.location.K };
+        var coordinates = { latitude : results[0].geometry.location.H, longitude : results[0].geometry.location.L };
 
         //remove
         // console.log('submitAddress():geocode says: Results: ',results);
@@ -221,6 +235,7 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
       main.attractionObj = Details.createPlacesObj(main.neighborhoods, Details.attractionDict);
       main.serviceObj = Details.createPlacesObj(main.neighborhoods, Details.serviceDict);
       main.getBuyPrice(main.neighborhoods);
+      main.filterMaxPrice();
       main.neighborhoodArray = main.orderByArray(main.neighborhoods);
       main.filterNeighborhoods();
        //remove
@@ -235,9 +250,9 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
   main.filterNeighborhoods = function() {
     console.log('filterNeighborhoods')
     main.filteredNeighborhoodArray = main.neighborhoodArray.filter(function(obj) {
-      return !(main.searchInfo.maxRent < obj.estimateLow) &&
-      !(main.searchInfo.commuteTime < obj.commuteTime) &&
-      !(main.searchInfo.commuteDistance < obj.commuteDistance);
+      return !(main.filter.maxPrice < obj.estimateLow) &&
+      !(main.filter.commuteTime < obj.commuteTime) &&
+      !(main.filter.commuteDistance < obj.commuteDistance);
     });
   };
 
