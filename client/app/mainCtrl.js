@@ -47,7 +47,7 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
       obj.price = (neighborhood.rentEstimate.estimateLow) ? '$' + neighborhood.rentEstimate.estimateLow.toLocaleString() + ' - ' + '$' + neighborhood.rentEstimate.estimateHigh.toLocaleString() : 'Not Available';
     } else {
       if(main.buyPrice[neighborhood.name].price !== 'rent selected') { obj.price = 'Not Available'; }
-      obj = {title: main.buyPrice[neighborhood.name].housetype, price: main.buyPrice[neighborhood.name].price.toLocaleString()};
+      obj = {title: main.buyPrice[neighborhood.name].housetype, price: main.buyPrice[neighborhood.name].price};
     }
     return obj;
   }
@@ -131,7 +131,7 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
           priceData[dataInfo[0]].values[0][dataInfo[1]][0].value &&
           priceData[dataInfo[0]].values[0][dataInfo[1]][0].value[0] &&
           priceData[dataInfo[0]].values[0][dataInfo[1]][0].value[0]._) {
-            temp.price = '$' + priceData[dataInfo[0]].values[0][dataInfo[1]][0].value[0]._;
+            temp.price = '$' + parseInt(priceData[dataInfo[0]].values[0][dataInfo[1]][0].value[0]._).toLocaleString();
         }
       }
       main.buyPrice[item.name] = temp;
