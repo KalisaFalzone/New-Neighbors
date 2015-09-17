@@ -20,6 +20,12 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
 
   main.filter = {};
 
+  //prepopulate the filter bar with the information for renters
+  main.filter.displayMaxPrice = 8000;
+  main.filter.displayMaxPriceTitle = 'Max Monthly Price:'
+  main.filter.displayValue = 1000;
+  main.filter.displayStep = 25;
+
   main.filteredNeighborhoodArray = [];
   main.serverResponse = {};
   main.filterType = 'orderPrice';
@@ -270,12 +276,12 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
     var price = true;
     if (main.buyOrRent === 'rent') {
       main.filter.displayMaxPrice = 8000;
-      main.fliter.maxPriceTitle = 'Max Monthly Price:'
+      main.fliter.displayMaxPriceTitle = 'Max Monthly Price:'
       main.filter.displayValue = 1000;
       main.filter.displayStep = 25;
     } else {
       main.filter.displayMaxPrice = 5000000;
-      main.fliter.maxPriceTitle = 'Max Home Price:'
+      main.filter.displayMaxPriceTitle = 'Max Home Price:'
       main.filter.displayValue = 200000;
       main.filter.displayStep = 2000;
     }

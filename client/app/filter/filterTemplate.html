@@ -24,8 +24,13 @@
     <form collapse="isCollapsed">
   <!-- start of rent section -->
       <div class="form-group">
-        <label>{{main.filter.maxPriceTitle}} ${{main.filter.displayMaxPrice}}</label>
-        <input type="range" name="rentRange" min="0" max="{{main.filter.displayMaxPrice}}" value="{{main.filter.displayValue}}" step="{{main.filter.displayStep}}" ng-model="main.filter.maxPrice">
+        <div ng-show="{{main.searchInfo.buyOrRent === 'rent'}}">
+          <label>Max Monthly Price: ${{main.filter.displayMaxPrice}}</label>
+          <input type="range" name="rentRange" min="0" max="8000" value="1000" step="25" ng-model="main.filter.displayMaxPrice">
+        </div>
+<!-- COMMENT BACK IN THESE TWO LINES -->
+      <!--   <label>{{main.filter.displayMaxPriceTitle}} ${{main.filter.displayMaxPrice}}</label>
+        <input type="range" name="rentRange" min="0" max="{{main.filter.displayMaxPrice}}" value="{{main.filter.displayValue}}" step="{{main.filter.displayStep}}" ng-model="main.filter.maxPrice"> -->
       </div>
   <!-- end of rent section -->
 
