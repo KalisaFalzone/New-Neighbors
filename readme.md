@@ -45,12 +45,12 @@ From the details view click on the Statictics button to see
 ## Developer Information
 
 ### Strategy
-Our goals were threefold: 
+Our goals were threefold:
 - To make the user feel comfortable browsing our app, the way they would in a suitable neighborhood
 - To deliver a multitude of data, returned quickly from several APIs
 - To give the user the feeling of a neighborhood--not just its raw facts
 
-We created a crisp clear design style, with colors you might find on a cozy couch.  We used AngularJS with UI Router so we could load subviews instantly without needing to wait for other parts of the page to reload.  On the back end Node, Express, and Q provided fast, reliable timing on several parallel asynchronous API calls.  We delivered nearby Instagram photos to convey the personality and culture of the area.  
+We gave Turf a design that emphasizes consistency, minimalism and ambience.  We used AngularJS with UI Router so we could load subviews instantly without needing to wait for other parts of the page to reload.  On the back end Node, Express, and Q provided fast, reliable timing on several parallel asynchronous API calls.  We delivered nearby Instagram photos to convey the personality and culture of the area.
 
 ###Front End
 
@@ -128,7 +128,7 @@ server
 ####Software
 
 [Git](http://git-scm.com/downloads): Use the installer for your OS.
-[Node.js](https://nodejs.org/en/): Use the installer for your OS. 
+[Node.js](https://nodejs.org/en/): Use the installer for your OS.
 [Bower](http://bower.io/) Run npm install -g bower
 
 From within the root directory:

@@ -12,15 +12,16 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
   main.searchInfo.bathrooms = 1;
 
   main.filter = {}; //object to collect filter specific information
-  main.filter.maxRent = 8000;
   main.filter.commuteTime = 45;
   main.filter.commuteDistance = 30;
-
+  //depending on what the user picks buy or rent this will change the filter that is displayed and there are two different max values
+  main.filter.maxRent = 8000;
   main.filter.maxBuy = 5000000;
 
-  main.filteredNeighborhoodArray = [];
-  main.serverResponse = {};
+  main.filteredNeighborhoodArray = []; //to contain only the neighborhoods that meet the filter criteria above.
   main.filterType = 'estimateLow';
+
+  main.serverResponse = {};
   main.currentNeighborhood = { name: 'default' };
   main.loading = false;
 
@@ -84,13 +85,13 @@ app.controller('MainController', ['Map', 'ServerApi', '$state', 'Details', 'Char
       }
       arr.push({
           name: neighborhoods[i].name,
-          commuteTime: neighborhoods[i].commuteInfo.commuteTime,
-          commuteDistance: neighborhoods[i].commuteInfo.commuteDistance,
+          commuteTime: (neighborhoods[i].commuteInfo && neighborhoods[i].commuteInfo.commuteTime) ? neighborhoods[i].commuteInfo.commuteTime : 'Not Available',
++         commuteDistance: (neighborhoods[i].commuteInfo && neighborhoods[i].commuteInfo.commuteDistance) ? neighborhoods[i].commuteInfo.commuteDistance : 'Not Available',
           estimateLow: neighborhoods[i].rentEstimate ? neighborhoods[i].rentEstimate.estimateLow : 'Not Available',
           estimateHigh: neighborhoods[i].rentEstimate ? neighborhoods[i].rentEstimate.estimateHigh : 'Not Available',
-          instagram: neighborhoods[i].instagram,
+          instagram: neighborhoods[i].instagram ? neighborhoods[i].instagram : 'Not Available',
           coordinates: {latitude: neighborhoods[i].latitude, longitude: neighborhoods[i].longitude},
-          demography: neighborhoods[i].demographics,
+          demography: neighborhoods[i].demographics ? neighborhoods[i].demographics : 'Not Available',
           priceString : main.getPriceString(neighborhoods[i]),
           orderPrice: main.orderPrice(neighborhoods[i])
       });
